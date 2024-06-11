@@ -1,0 +1,27 @@
+# To use this file you must have EditorConfig installed for your editor.
+# For Visual Studio Code, install the extension: "EditorConfig for VS Code"
+# https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+max_line_length = 120
+tab_width = 4
+trim_trailing_whitespace = true
+
+[Dockerfile]
+indent_size = 2
+
+[Makefile]
+indent_style = tab
+
+[*.{code-snippets,json,sh,toml,yaml,yml}]
+indent_size = 2
+
+[*.{ansi,md,txt}]
+insert_final_newline = false

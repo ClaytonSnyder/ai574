@@ -1,0 +1,118 @@
+{
+  "[dockerfile][editorconfig][ignore][properties][shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "editor.tabSize": 2
+  },
+
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.tabSize": 4
+  },
+
+  "[toml]": {
+    "editor.formatOnSave": false,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+
+  "autoDocstring.docstringFormat": "google-notypes",
+  "autoDocstring.startOnNewLine": true,
+
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.detectIndentation": false,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+
+  "evenBetterToml.formatter.alignEntries": true,
+  "evenBetterToml.formatter.arrayAutoCollapse": true,
+  "evenBetterToml.formatter.arrayAutoExpand": true,
+  "evenBetterToml.formatter.compactArrays": true,
+  "evenBetterToml.formatter.crlf": false,
+  "evenBetterToml.formatter.indentEntries": true,
+  "evenBetterToml.formatter.indentString": "  ",
+  "evenBetterToml.formatter.indentTables": false,
+  "evenBetterToml.formatter.reorderKeys": true,
+  "evenBetterToml.formatter.trailingNewline": true,
+  "evenBetterToml.schema.associations": { "pyproject.toml": "https://json.schemastore.org/pyproject.json" },
+  "evenBetterToml.schema.catalogs": ["https://www.schemastore.org/api/json/catalog.json"],
+  "evenBetterToml.schema.enabled": true,
+  "evenBetterToml.taplo.bundled": true,
+  "evenBetterToml.taplo.configFile.enabled": false,
+
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+
+  "git.alwaysSignOff": true,
+  "git.autofetch": true,
+  "git.autoStash": true,
+  "git.enableCommitSigning": true,
+  "git.inputValidationSubjectLength": null,
+  "git.pruneOnFetch": true,
+  "git.terminalAuthentication": true,
+  "git.terminalGitEditor": true,
+  "git.useIntegratedAskPass": true,
+
+  "isort.args": [
+    "--atomic",
+    "--line-length=120",
+    "--lines-after-imports=2",
+    "--lines-between-types=1",
+    "--profile=black",
+    "--python-version=310",
+    "--skip-gitignore",
+    "--thirdparty=in_toto"
+  ],
+  "isort.check": true,
+
+  "markdown-preview-enhanced.frontMatterRenderingOption": "code block",
+  "markdown-preview-enhanced.codeBlockTheme": "default.css",
+  "markdown-preview-enhanced.previewTheme": "none.css",
+
+  "markdownlint.config": {
+    "first-line-heading": false,
+    "no-inline-html": false
+  },
+
+  "mypy-type-checker.args": ["--config-file=pyproject.toml"],
+  "mypy-type-checker.importStrategy": "fromEnvironment",
+  "mypy-type-checker.path": ["poetry", "run", "mypy"],
+  "mypy-type-checker.reportingScope": "workspace",
+
+  "prettier.printWidth": 120,
+  "prettier.singleQuote": true,
+
+  "pylint.importStrategy": "fromEnvironment",
+  "pylint.args": ["--generated-members=cv2.*"],
+  "python.analysis.autoFormatStrings": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.completeFunctionParens": true,
+  "python.analysis.inlayHints.pytestParameters": true,
+  "python.analysis.stubPath": "stubs",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.defaultInterpreterPath": "python3",
+  "python.languageServer": "Pylance",
+  "python.poetryPath": "poetry",
+  "python.terminal.activateEnvInCurrentTerminal": true,
+  "python.terminal.activateEnvironment": true,
+  "python.testing.autoTestDiscoverOnSaveEnabled": true,
+  "python.testing.pytestArgs": ["--strict-markers", "--no-cov", "--import-mode=importlib", "test"],
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+
+  "shellformat.flag": "--binary-next-line --keep-padding --case-indent --space-redirects --indent=2",
+  "shellformat.useEditorConfig": true
+}

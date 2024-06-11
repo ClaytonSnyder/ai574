@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "fy-bot"
+version = "0.1.0"
+description = ""
+authors = ["Clayton Snyder <cms8896@psu.edu>", "Paul Semera <pzs228@psu.edu>, Ping-Lun Wu <pmw5421@psu.edu>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "fy_bot"}]
+
+[tool.poetry.scripts]
+fybot = "fy_bot.cli.main:app"
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+typer = {extras = ["all"], version = "^0.9.0"}
+pandas = "^2.2.1"
+tqdm = "^4.66.2"
+tensorflow =  "^2.15.0"
+scipy = "^1.12.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.10.0"
+dill = "0.*"
+isort = "^5.12.0"
+pre-commit = "^3.5.0"
+pylint = "^3.0.1"
+setuptools = "^68.2.2"
+shfmt-py = "^3.4.3.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

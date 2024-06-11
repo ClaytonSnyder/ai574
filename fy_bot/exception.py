@@ -1,0 +1,2 @@
+class FyBotException(Exception):
+    pass
