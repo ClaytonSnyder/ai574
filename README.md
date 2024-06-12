@@ -83,3 +83,38 @@
 1. Click __Python: Select Interpreter__
 1. Select the one that ends in __('.venv': Poetry)
 1. You're all configured
+
+## Running the application
+
+### Build the code/Activate Virtual Environment
+
+1. Ensure that you've done all of the "Getting started" steps
+1. Execute:
+
+    ```bash
+    poetry build
+    poetry install
+    source .venv/Scripts/activate
+    ```
+
+### Create a "project"
+
+1. Execute:
+
+    ```bash
+    fybot project create my_project
+    ```
+
+    * Notice that a new folder called "projects" was created
+    * Notice that a folder called "my_project" was created
+
+### Add datasources to your project
+
+1. Execute:
+
+    ```bash
+    fybot datasource download first_project https://www.irs.gov/pub/ebook/p17.epub
+    ```
+
+    * Notice that inside the projects/my_project/downloads there is now an p17.epub file
+    * Notice that inside the projects/my_project/raw there is now a p17.epub.raw.txt file

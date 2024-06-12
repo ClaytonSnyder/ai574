@@ -30,6 +30,7 @@ def create_project(
     project_path = projects_paths / name
     corpus_path = projects_paths / name / "corpus"
     downloads_path = projects_paths / name / "downloads"
+    raw_path = projects_paths / name / "raw"
 
     if project_path.exists():
         logger.info(f"Failed to create project: {name}")
@@ -38,6 +39,8 @@ def create_project(
     os.makedirs(project_path)
     os.makedirs(corpus_path)
     os.makedirs(downloads_path)
+    os.makedirs(raw_path)
+
     logger.info(f"Project Created.")
 
 

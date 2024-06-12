@@ -17,6 +17,9 @@ pandas = "^2.2.1"
 tqdm = "^4.66.2"
 tensorflow =  "^2.15.0"
 scipy = "^1.12.0"
+ebooklib = "^0.18"
+beautifulsoup4 = "^4.12.3"
+pymupdf = "^1.24.5"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.10.0"
