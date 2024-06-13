@@ -113,7 +113,8 @@
 1. Execute:
 
     ```bash
-    fybot datasource download first_project https://www.irs.gov/pub/ebook/p17.epub
+    fybot datasource download my_project https://www.irs.gov/pub/ebook/p17.epub
+    fybot datasource download my_project https://d18rn0p25nwr6d.cloudfront.net/CIK-0001045810/1cbe8fe7-e08a-46e3-8dcc-b429fc06c1a4.pdf
     ```
 
     * Notice that inside the projects/my_project/downloads there is now an p17.epub file
