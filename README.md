@@ -115,6 +115,12 @@
     ```bash
     fybot datasource download my_project https://www.irs.gov/pub/ebook/p17.epub
     fybot datasource download my_project https://d18rn0p25nwr6d.cloudfront.net/CIK-0001045810/1cbe8fe7-e08a-46e3-8dcc-b429fc06c1a4.pdf
+    fybot datasource download my_project https://ir.tesla.com/_flysystem/s3/sec/000162828024002390/tsla-20231231-gen.pdf
+    fybot datasource download my_project https://abc.xyz/assets/43/44/675b83d7455885c4615d848d52a4/goog-10-k-2023.pdf
+    fybot datasource download my_project https://d18rn0p25nwr6d.cloudfront.net/CIK-0001018724/336d8745-ea82-40a5-9acc-1a89df23d0f3.pdf
+    fybot datasource download my_project https://d18rn0p25nwr6d.cloudfront.net/CIK-0001326801/c7318154-f6ae-4866-89fa-f0c589f2ee3d.pdf
+    fybot datasource download my_project https://s2.q4cdn.com/299287126/files/doc_financials/2024/q1/Q124-Amazon-Transcript-FINAL.pdf
+    fybot datasource download my_project https://ir.tesla.com/_flysystem/s3/sec/000110465924051405/tm2326076d20_defa14a-gen.pdf
     ```
 
     * Notice that inside the projects/my_project/downloads there is now an p17.epub file
