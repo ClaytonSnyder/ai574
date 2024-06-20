@@ -114,5 +114,6 @@
   "python.testing.unittestEnabled": false,
 
   "shellformat.flag": "--binary-next-line --keep-padding --case-indent --space-redirects --indent=2",
-  "shellformat.useEditorConfig": true
+  "shellformat.useEditorConfig": true,
+  "terminal.integrated.defaultProfile.windows": "Git Bash"
 }
