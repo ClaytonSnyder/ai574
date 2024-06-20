@@ -95,6 +95,7 @@
     poetry build
     poetry install
     source .venv/Scripts/activate
+    python -m spacy download en_core_web_sm
     ```
 
 ### Create a "project"

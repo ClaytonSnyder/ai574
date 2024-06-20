@@ -1,18 +1,95 @@
 import os
-import shutil
+import re
 
 from logging import Logger
 from pathlib import Path
 
 import fitz
+import nltk
 import requests
+import spacy
 
 from bs4 import BeautifulSoup
-from click import open_file
 from ebooklib import ITEM_DOCUMENT, epub
+from nltk.tokenize import sent_tokenize
+from tqdm import tqdm
 
 from fy_bot.exception import FyBotException
 from fy_bot.logger import LoggerFactory
+
+
+def __is_syntactically_correct(sentence: str, spacy_language: spacy.language.Language):
+    doc = spacy_language(sentence)
+
+    # Basic checks for syntactic correctness
+    # 1. There should be one and only one ROOT
+    # 2. ROOT should be a verb (in most cases)
+    # 3. Ensure basic dependencies like subject and object are present (for transitive verbs)
+
+    root_tokens = [token for token in doc if token.dep_ == "ROOT"]
+    if len(root_tokens) != 1:
+        return False
+
+    root_token = root_tokens[0]
+    if root_token.pos_ != "VERB":
+        return False
+
+    # Check for the presence of a subject
+    subj_tokens = [token for token in doc if "subj" in token.dep_]
+    if len(subj_tokens) == 0:
+        return False
+
+    # Additional checks can be added as needed
+
+    return True
+
+
+def compile_corpus(
+    project_name: str,
+    projects_paths: Path = Path("./projects"),
+    log_file: str = "fy_bot.log",
+    log_level: str = "INFO",
+) -> None:
+    nltk.download("punkt")
+    spacy_language = spacy.load("en_core_web_sm")
+    logger = LoggerFactory.get_logger(log_file, log_level)
+    logger.info("Compiling corpus...")
+
+    raw_folder = projects_paths / project_name / "raw"
+    all_sentences = []
+    for file in tqdm(os.listdir(raw_folder), "Cleaning text.."):
+        with open(os.path.join(raw_folder, file), "r", encoding="utf-8") as raw_file:
+            text = raw_file.read()
+
+        # Remove unwanted characters, extra spaces, and normalize text
+        text = text.lower()  # Convert to lowercase
+        text = re.sub(r"\s+", " ", text)  # Replace multiple spaces with a single space
+        text = re.sub(r"\[.*?\]", "", text)  # Remove text in brackets
+        text = re.sub(r"\s*-\s*", "-", text)  # Remove spaces around hyphens
+        text = re.sub(
+            r"[^\w\s.!?]", "", text
+        )  # Remove special characters except punctuation
+
+        # Split text into sentences
+        sentences = sent_tokenize(text)
+
+        # Further clean sentences if necessary
+        cleaned_sentences = [
+            sentence.strip()
+            for sentence in sentences
+            if sentence.strip()
+            and __is_syntactically_correct(sentence.strip(), spacy_language)
+        ]
+
+        all_sentences.extend(cleaned_sentences)
+
+    with open(
+        projects_paths / project_name / "corpus.txt", "w", encoding="utf-8"
+    ) as corpus_file:
+        for sentence in tqdm(all_sentences, "Writing corpus to disk.."):
+            corpus_file.write(f"{sentence}\n")
+
+    logger.info("Corpus compilation complete.")
 
 
 def add_document(

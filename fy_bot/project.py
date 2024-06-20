@@ -7,6 +7,10 @@ from fy_bot.exception import FyBotException
 from fy_bot.logger import LoggerFactory
 
 
+def project_exists(name: str, projects_paths: Path = Path("./projects")) -> bool:
+    return os.path.exists(projects_paths / name)
+
+
 def create_project(
     name: str,
     projects_paths: Path = Path("./projects"),
@@ -28,7 +32,6 @@ def create_project(
     logger = LoggerFactory.get_logger(log_file, log_level)
     logger.info(f"Creating new project: {name}...")
     project_path = projects_paths / name
-    corpus_path = projects_paths / name / "corpus"
     downloads_path = projects_paths / name / "downloads"
     raw_path = projects_paths / name / "raw"
 
@@ -37,7 +40,6 @@ def create_project(
         raise FyBotException(f"Project '{name}' already exists")
 
     os.makedirs(project_path)
-    os.makedirs(corpus_path)
     os.makedirs(downloads_path)
     os.makedirs(raw_path)
 
@@ -66,9 +68,9 @@ def delete_project(
     logger.info(f"Deleting project: {name}...")
     project_path = projects_paths / name
 
-    if project_path.exists():
+    if not project_path.exists():
         logger.info(f"Failed to delete project: {name}")
-        raise FyBotException(f"Project '{name}' already exists")
+        raise FyBotException(f"Project '{name}' doesn't exist")
 
     shutil.rmtree(project_path)
     logger.info(f"Project deleted.")
