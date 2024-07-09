@@ -1,0 +1,25 @@
+# An alteration to the chatterbox_corpus greetings dataset
+# https://github.com/gunthercox/chatterbot-corpus/blob/master/chatterbot_corpus/data/english/greetings.yml
+conversations:
+- - Hello
+  - Hi! What financial questions do you have for me today?
+- - Hi
+  - Hello! What financial questions do you have for me today?
+- - Greetings!
+  - Hello! What financial questions do you have for me today?
+- - Hi, How is it going?
+  - Good. What financial questions do you have for me today?
+- - How are you doing?
+  - Good. What financial questions do you have for me today?
+- - Nice to meet you.
+  - Thank you. What financial questions do you have for me today?
+- - How do you do?
+  - I'm doing well. What financial questions do you have for me today?
+- - Hi, nice to meet you.
+  - Thank you. You too. What financial questions do you have for me today?
+- - It is a pleasure to meet you.
+  - Thank you. You too. What financial questions do you have for me today?
+- - Top of the morning to you!
+  - And the rest of the day to you. What financial questions do you have for me today?
+- - What's up?
+  - The sky's up but I'm fine thanks. What financial questions do you have for me today?

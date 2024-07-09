@@ -1,14 +1,31 @@
 import os
 
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List, Tuple
 
 from tqdm import tqdm
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 
+import fy_bot
 from fy_bot.exception import FyBotException
 from fy_bot.logger import LoggerFactory
 
+import yaml
+
+def __get_greetings() -> List[Tuple[str, str]]:
+    greetings_file = Path(fy_bot.__file__).parent / "resources" / "greetings.yml"
+
+    with open(greetings_file, 'r', encoding="utf-8") as yaml_file:
+        yaml_content = yaml.safe_load(yaml_file)
+
+    greetings = []
+    for pairs in yaml_content["conversations"]:
+        if len(pairs) == 2:
+            question = pairs[0]
+            answer = pairs[1]
+            greetings.append(((question, answer)))
+
+    return greetings
 
 def generate_context_question(
     project_name: str,
@@ -34,6 +51,18 @@ def generate_context_question(
     Returns:
         Dictionary of Question->Answer pairs
     """
+    greetings = __get_greetings()
+
+    # Generate questions for each context
+    context_question_pairs = {}
+    questions = []
+    answers = []
+
+    for question, answer in greetings:
+        context_question_pairs[question] = answer
+        questions.append(question)
+        answers.append(answer)
+
     logger = LoggerFactory.get_logger(log_file, log_level)
     logger.info("Compiling corpus...")
     corpus_file = projects_paths / project_name / "corpus.txt"
@@ -59,10 +88,6 @@ def generate_context_question(
     )
     model = model.to(device)  # type: ignore
 
-    # Generate questions for each context
-    context_question_pairs = {}
-    questions = []
-    answers = []
     for sentence in tqdm(sentences, "Generating context questions..."):
         if not sentence.endswith("?"):
             question = __generate_question(sentence, tokenizer, model, device)
