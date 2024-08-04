@@ -3,7 +3,7 @@ import re
 
 from logging import Logger
 from pathlib import Path
-
+from deepmultilingualpunctuation import PunctuationModel
 import fitz
 import nltk
 import requests
@@ -12,11 +12,30 @@ import spacy
 from bs4 import BeautifulSoup
 from ebooklib import ITEM_DOCUMENT, epub
 from nltk.tokenize import sent_tokenize
+import torch
 from tqdm import tqdm
 
 from fy_bot.exception import FyBotException
 from fy_bot.logger import LoggerFactory
 
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+from youtube_transcript_api import YouTubeTranscriptApi
+
+nltk.download("punkt")
+spacy_language = spacy.load("en_core_web_sm")
+tokenizer_gpt2 = GPT2Tokenizer.from_pretrained('gpt2')
+model_gpt2 = GPT2LMHeadModel.from_pretrained('gpt2')
+model_gpt2.eval() # type: ignore
+
+def calculate_perplexity(sentence, max_length=1024):
+    inputs = tokenizer_gpt2.encode(sentence, return_tensors='pt', max_length=max_length, truncation=True)
+    if inputs.shape[1] < 2:
+        inputs = torch.cat((inputs, torch.tensor([[tokenizer_gpt2.eos_token_id]])), dim=1)
+
+    with torch.no_grad():
+        outputs = model_gpt2(inputs, labels=inputs) # type: ignore
+        loss = outputs.loss
+    return torch.exp(loss).item()
 
 def __is_syntactically_correct(sentence: str, spacy_language: spacy.language.Language):
     doc = spacy_language(sentence)
@@ -41,6 +60,12 @@ def __is_syntactically_correct(sentence: str, spacy_language: spacy.language.Lan
 
     # Additional checks can be added as needed
 
+    perplexity = calculate_perplexity(sentence)
+
+    perplexity_threshold = 50
+    if perplexity > perplexity_threshold:
+        return False
+
     return True
 
 
@@ -50,19 +75,17 @@ def compile_corpus(
     log_file: str = "fy_bot.log",
     log_level: str = "INFO",
 ) -> None:
-    nltk.download("punkt")
-    spacy_language = spacy.load("en_core_web_sm")
     logger = LoggerFactory.get_logger(log_file, log_level)
     logger.info("Compiling corpus...")
 
     raw_folder = projects_paths / project_name / "raw"
     all_sentences = []
-    for file in tqdm(os.listdir(raw_folder), "Cleaning text.."):
+    for file in os.listdir(raw_folder):
         with open(os.path.join(raw_folder, file), "r", encoding="utf-8") as raw_file:
             text = raw_file.read()
 
         # Remove unwanted characters, extra spaces, and normalize text
-        text = text.lower()  # Convert to lowercase
+        #text = text.lower()  # Convert to lowercase
         text = re.sub(r"\s+", " ", text)  # Replace multiple spaces with a single space
         text = re.sub(r"\[.*?\]", "", text)  # Remove text in brackets
         text = re.sub(r"\s*-\s*", "-", text)  # Remove spaces around hyphens
@@ -74,22 +97,51 @@ def compile_corpus(
         sentences = sent_tokenize(text)
 
         # Further clean sentences if necessary
-        cleaned_sentences = [
-            sentence.strip()
-            for sentence in sentences
-            if sentence.strip()
-            and __is_syntactically_correct(sentence.strip(), spacy_language)
-        ]
-
-        all_sentences.extend(cleaned_sentences)
+        pattern = re.compile(r'\b\d+ \d+ \d+ \d+\b')
+        for sentence in tqdm(sentences, f"Cleaning sentences in {file}"):
+            if (sentence.strip() != ""
+            and not pattern.search(sentence)
+            and len(sentence.split(" ")) > 3
+            and __is_syntactically_correct(sentence.strip(), spacy_language)):
+                all_sentences.append(sentence.strip())
 
     with open(
         projects_paths / project_name / "corpus.txt", "w", encoding="utf-8"
     ) as corpus_file:
-        for sentence in tqdm(all_sentences, "Writing corpus to disk.."):
-            corpus_file.write(f"{sentence}\n")
+        corpus_file.write(" ".join(all_sentences))
 
     logger.info("Corpus compilation complete.")
+
+def add_youtube_video(
+    project_name: str,
+    video_id: str,
+    projects_paths: Path = Path("./projects"),
+    log_file: str = "fy_bot.log",
+    log_level: str = "INFO",
+):
+    logger = LoggerFactory.get_logger(log_file, log_level)
+    logger.info(f"Adding YouTube video {video_id} to project {project_name}")
+
+    transcript = YouTubeTranscriptApi.get_transcript(video_id)
+
+    lines = []
+    for item in transcript:
+        if "text" in item:
+            text = item['text']
+            lines.append(text)
+
+    raw = " ".join(lines)
+
+    model = PunctuationModel()
+    punctuated_text = model.restore_punctuation(raw)
+
+    output_file_path = (
+        projects_paths / project_name / "raw" / f"youtube.{video_id}.raw.txt"
+    )
+
+    with open(output_file_path, "w", encoding="utf-8") as output_file:
+        output_file.write(punctuated_text)
+    logger.info(f"Raw text successfully extracted from transcript.")
 
 
 def add_document(
