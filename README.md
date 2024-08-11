@@ -28,8 +28,8 @@
 
 ### Running the user interface
 1. Install Nodejs (https://nodejs.org/en)
-2. Extract the dataset zip into the source code folder
-3. Extract the model zip into the source code folder
+2. Extract the dataset zip into the source code folder (https://pennstateoffice365.sharepoint.com/:u:/s/AI-574/ETb9x_EL_x5Bm-AeP_X-4yIBpwFtKJUN0MP_ksbYQWt87Q?e=y0MFq5)
+3. Extract the model zip into the source code folder (https://pennstateoffice365.sharepoint.com/:u:/s/AI-574/Ef4v2vOep55Bvepv0atx0xUB_XLFls95cmohL1WYgdTjMg?e=9o1XMv)
 4. From the root of the source code folder, execute:
    ```bash
    python ./fy_bot/server.py --no-debugger --no-reload --host=0.0.0.0
