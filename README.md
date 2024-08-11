@@ -23,7 +23,8 @@
         ```
 
 ### Running the notebook
-1. Run the example.ipynb notbook
+1. Run the Model 1- GPT2.ipynb notbook
+2. Run the Model 2- Langchain-RAG.ipynb notbook
 
 ### Running the user interface
 1. Install Nodejs (https://nodejs.org/en)
