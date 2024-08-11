@@ -1,4 +1,11 @@
-# ai574 - NLP Financial Chatbot
+# NLP Financial Chatbot (FyBot)
+
+Our project takes a novel approach to the data collection, aggregation, and dialog generation of financial data to train a Financial Chatbot (FyBot) based on a GPT2 model.
+
+## Team Members
+- Clayton Snyder
+- Ping-Lun (Tony) Wu
+- Paul Michael Semera
 
 ## Getting Started - Reproduction
 
