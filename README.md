@@ -1,6 +1,47 @@
 # ai574 - NLP Financial Chatbot
 
-## Getting Started
+## Getting Started - Reproduction
+
+### Prereqs
+
+1. Make sure you have python 3.11 (or above) installed (<https://www.python.org/downloads/>)
+2. Extract the source code zip
+3. Install the dependencies:
+
+    ```bash
+    pip3 install -r requirements.txt
+    python -m spacy download en_core_web_sm
+    ```
+4. Include the source code folder in your PYTHONPATH:
+   1. For windows:
+        ```bash
+        set PYTHONPATH=%PYTHONPATH%;C:\path\to\extracted\source\
+        ```
+   2. For Linuz/Mac OS:
+        ```bash
+        export PYTHONPATH=${PYTHONPATH};/path/to/extracted/source
+        ```
+
+### Running the notebook
+1. Run the example.ipynb notbook
+
+### Running the user interface
+1. Install Nodejs (https://nodejs.org/en)
+2. Extract the dataset zip into the source code folder
+3. Extract the model zip into the source code folder
+4. From the root of the source code folder, execute:
+   ```bash
+   python ./fy_bot/server.py --no-debugger --no-reload --host=0.0.0.0
+   ```
+5. Open another terminal in the root of the source code folder, execute:
+   ```bash
+   cd fy_bot_ui
+   npm install
+   npm run dev
+   ```
+6. Open a browser and go to http://localhost:8080
+
+## Development of Chatbot
 
 ### Prereqs
 
@@ -77,6 +118,7 @@
     pip3 install -r requirements.txt
     python -m spacy download en_core_web_sm
     ```
+
 
 ## Running the application
 1. If you want to run the notebook example then open the example.ipynb and press play
