@@ -21,6 +21,10 @@
         ```bash
         export PYTHONPATH=${PYTHONPATH};/path/to/extracted/source
         ```
+5. Since our dataset, model, and powerpoint slides were so large we uploaded them to cloud storage to be downloaded:
+   1. Dataset - https://pennstateoffice365.sharepoint.com/:u:/s/AI-574/ETb9x_EL_x5Bm-AeP_X-4yIBpwFtKJUN0MP_ksbYQWt87Q?e=y0MFq5
+   2. Model (weights/biases) - https://pennstateoffice365.sharepoint.com/:u:/s/AI-574/Ef4v2vOep55Bvepv0atx0xUB_XLFls95cmohL1WYgdTjMg?e=9o1XMv
+   3. Powerpoint Slides - https://pennstateoffice365.sharepoint.com/:p:/s/AI-574/EYYh3eqU07JHgK_PfPhyeXcBtRECV-zRW06PhcMf26tAtQ?e=hkiZxK
 
 ### Running the notebook
 1. Run the Model 1- GPT2.ipynb notbook
@@ -28,8 +32,8 @@
 
 ### Running the user interface
 1. Install Nodejs (https://nodejs.org/en)
-2. Extract the dataset zip into the source code folder (https://pennstateoffice365.sharepoint.com/:u:/s/AI-574/ETb9x_EL_x5Bm-AeP_X-4yIBpwFtKJUN0MP_ksbYQWt87Q?e=y0MFq5)
-3. Extract the model zip into the source code folder (https://pennstateoffice365.sharepoint.com/:u:/s/AI-574/Ef4v2vOep55Bvepv0atx0xUB_XLFls95cmohL1WYgdTjMg?e=9o1XMv)
+2. Extract the dataset zip into the source code folder
+3. Extract the model zip into the source code folder
 4. From the root of the source code folder, execute:
    ```bash
    python ./fy_bot/server.py --no-debugger --no-reload --host=0.0.0.0
