@@ -63,7 +63,7 @@
 
     ```bash
     git clone git@github.com:ClaytonSnyder/ai574.git
-    cd Pneumonia-DNN
+    cd ai574
     code .
     ```
 
@@ -74,55 +74,20 @@
 1. In VS Code terminal in the root of your repo execute:
 
     ```bash
-    pip3 install poetry
-    poetry install
-    ```
-
-1. Press __Ctrl+Shift+p__ to open the command palette
-1. Type ___Python:___
-1. Click __Python: Select Interpreter__
-1. Select the one that ends in __('.venv': Poetry)
-1. You're all configured
-
-## Running the application
-
-### Build the code/Activate Virtual Environment
-
-1. Ensure that you've done all of the "Getting started" steps
-1. Execute:
-
-    ```bash
-    poetry build
-    poetry install
-    source .venv/Scripts/activate
+    pip3 install -r requirements.txt
     python -m spacy download en_core_web_sm
     ```
 
-### Create a "project"
+## Running the application
+1. If you want to run the notebook example then open the example.ipynb and press play
+2. If you want to run the website:
+   1. Open the debug menu in VS Code and press the play button (this will start the server)
+   2. In a new terminal execute:
 
-1. Execute:
+      ```bash
+      cd fy_bot_ui
+      npm run dev
+      ```
 
-    ```bash
-    fybot project create my_project
-    ```
-
-    * Notice that a new folder called "projects" was created
-    * Notice that a folder called "my_project" was created
-
-### Add datasources to your project
-
-1. Execute:
-
-    ```bash
-    fybot datasource download my_project https://www.irs.gov/pub/ebook/p17.epub
-    fybot datasource download my_project https://d18rn0p25nwr6d.cloudfront.net/CIK-0001045810/1cbe8fe7-e08a-46e3-8dcc-b429fc06c1a4.pdf
-    fybot datasource download my_project https://ir.tesla.com/_flysystem/s3/sec/000162828024002390/tsla-20231231-gen.pdf
-    fybot datasource download my_project https://abc.xyz/assets/43/44/675b83d7455885c4615d848d52a4/goog-10-k-2023.pdf
-    fybot datasource download my_project https://d18rn0p25nwr6d.cloudfront.net/CIK-0001018724/336d8745-ea82-40a5-9acc-1a89df23d0f3.pdf
-    fybot datasource download my_project https://d18rn0p25nwr6d.cloudfront.net/CIK-0001326801/c7318154-f6ae-4866-89fa-f0c589f2ee3d.pdf
-    fybot datasource download my_project https://s2.q4cdn.com/299287126/files/doc_financials/2024/q1/Q124-Amazon-Transcript-FINAL.pdf
-    fybot datasource download my_project https://ir.tesla.com/_flysystem/s3/sec/000110465924051405/tm2326076d20_defa14a-gen.pdf
-    ```
-
-    * Notice that inside the projects/my_project/downloads there is now an p17.epub file
-    * Notice that inside the projects/my_project/raw there is now a p17.epub.raw.txt file
+   3. Click "Yes" when it prompts if it should open a browser
+   4. Chat with the bot :)
